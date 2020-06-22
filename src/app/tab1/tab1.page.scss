@@ -1,0 +1,47 @@
+.quickListContainer {
+    svg {
+        max-height: 36px;
+        max-width: 36px;
+        width: 100%;
+        height: 100%;
+    }
+
+    p {
+        font-size: 11px;
+        font-weight: 500;
+        color: #000000;
+        margin-top: 10px;
+    }
+
+    ion-item {
+        background-color: #fafafa;
+        background-color: #fafafa;
+        --ion-background-color: #fafafa;
+        max-width: 110px;
+        max-height: 100px;
+        width: 100%;
+        height: 100%;
+
+        ion-label {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            padding: 7px;
+        }
+    }
+}
+
+
+h1,h2 {
+    color:#03234D;
+    font-weight: 900;
+}
+
+p {
+    color:#03234D;
+}
+
+.headerMessage {
+    white-space: normal;
+}
