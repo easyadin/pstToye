@@ -1,17 +1,55 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" class="ion-no-border headerTitle" mode="ios">
   <ion-toolbar>
-    <ion-title>
-      Tab 2
+    <ion-title size="large">
+      Audio
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+<ion-content [fullscreen]="true" class="mainContainer">
+
+  <ion-item lines="none">
+    <ion-searchbar></ion-searchbar>
+  </ion-item>
+
+  <!-- categories -->
+  <ion-list lines="none" class="categoryList ion-padding">
+    <ion-card button detail="false">
+      <ion-card-content>
+        <ion-card-title>Faith</ion-card-title>
+      </ion-card-content>
+    </ion-card>
+    <ion-card button detail="false">
+      <ion-card-title>Forgiveness</ion-card-title>
+    </ion-card>
+    <ion-card button detail="false">
+      <ion-card-title>Righteousness</ion-card-title>
+    </ion-card>
+  </ion-list>
+
+  <!-- music list and albums Toggle -->
+  <ion-toolbar class="listArea">
+    <ion-segment value="all">
+      <ion-segment-button value="all">
+        <ion-label>All</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="favorites">
+        <ion-label>Album</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+  <!-- music list -->
+  <ion-list lines="none">
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="./avatar-han.png">
+      </ion-avatar>
+      <ion-label>
+        <h3>Spiritual Gift</h3>
+        <p>Pastor Toye</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

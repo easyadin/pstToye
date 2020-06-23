@@ -1,0 +1,46 @@
+.headerTitle {
+    padding: 16px;
+    padding: 30px;
+    padding-top: 20px;
+    ion-title {
+        padding: 0px;
+    }
+}
+
+.mainContainer {
+   
+}
+
+.categoryList {
+    display: flex;
+    flex-direction: row;
+    overflow: scroll;
+
+    ion-card {
+        min-width: 100px;
+        width: auto;
+        max-width: 100%;
+        flex: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 27px;
+        margin: 10px;
+
+        ion-card-title {
+            white-space: nowrap;
+            width: 100%;
+            text-overflow: unset;
+            overflow: visible;
+            text-align: center;
+            font-size: 18px;
+        }
+    }
+}
+
+
+
+.listArea {
+    padding: 0 30px;
+}
+

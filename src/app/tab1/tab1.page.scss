@@ -17,10 +17,8 @@
         background-color: #fafafa;
         background-color: #fafafa;
         --ion-background-color: #fafafa;
-        max-width: 110px;
-        max-height: 100px;
-        width: 100%;
-        height: 100%;
+   
+        border-radius: 12px;
 
         ion-label {
             display: flex;
@@ -28,20 +26,44 @@
             flex-direction: column;
             align-items: center;
             padding: 7px;
+           
         }
     }
 }
 
-
-h1,h2 {
-    color:#03234D;
+h1,
+h2 {
+    color: #03234d;
     font-weight: 900;
 }
 
 p {
-    color:#03234D;
+    color: #03234d;
 }
 
 .headerMessage {
     white-space: normal;
+    h1 {
+        font-size: 30px;
+    }
+    p {
+        line-height: 27px;
+        font-size: 18px;
+    }
+}
+
+.tvLabel {
+    fill: #03234d;
+}
+
+.websiteLabel {
+    fill: #03234d;
+}
+
+.blogLabel {
+    fill: #19b59b;
+}
+
+.bookLabel {
+    fill: #d3132a;
 }
