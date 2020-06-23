@@ -9,4 +9,9 @@ export class Tab2Page {
 
   constructor() {}
 
+  isToggle = 'all';
+
+  segmentChanged(ev: any) {
+    this.isToggle = ev.target.value;
+  }
 }
