@@ -1,5 +1,8 @@
 {
   "name": "pstToye",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
   "type": "angular"
 }
