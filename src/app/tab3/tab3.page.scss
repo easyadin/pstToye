@@ -50,7 +50,6 @@
     }
 }
 
-
 .songDetails {
     h3 {
         font-size: 15px;
@@ -82,12 +81,31 @@
     }
 }
 
-
 .musicList {
     ion-avatar {
         border: 1px solid;
         height: 40px;
         width: 40px;
         padding: 10px;
+    }
+}
+
+video {
+    max-width: 100%;
+    max-height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.bar {
+    z-index: 999;
+    width: 100%;
+    text-align: center;
+    transform: translate(0%, -100%);
+ }
+
+.musicList {
+    ion-card-content {
+        padding:0px;
     }
 }

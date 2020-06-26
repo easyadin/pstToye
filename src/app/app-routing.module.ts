@@ -17,7 +17,12 @@ const routes: Routes = [
   },
   {
     path: 'videoplayer',
-    loadChildren: () => import('./videoplayer/videoplayer.module').then(m => m.VideoplayerPageModule)
+    children: [
+      {
+        path: ':id',
+        loadChildren: () => import('./videoplayer/videoplayer.module').then(m => m.VideoplayerPageModule)
+      }
+    ]
   },
 ];
 @NgModule({

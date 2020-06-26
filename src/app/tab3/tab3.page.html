@@ -7,7 +7,7 @@
 </ion-header>
 
 
-<ion-content [fullscreen]="true" class="mainContainer">
+<ion-content [fullscreen]="true" class="mainContainer" [scrollEvents]="true" (ionScroll)="didScroll($event)">
 
   <ion-item lines="none">
     <ion-searchbar></ion-searchbar>
@@ -30,7 +30,7 @@
 
   <!-- music list and albums Toggle -->
   <ion-toolbar class="listArea">
-    <ion-segment [value] ="isToggle" (ionChange)="segmentChanged($event)">
+    <ion-segment [value]="isToggle" (ionChange)="segmentChanged($event)">
       <ion-segment-button value="all">
         <ion-label>All</ion-label>
       </ion-segment-button>
@@ -41,33 +41,34 @@
   </ion-toolbar>
 
   <!-- music list -->
-  <ion-list lines="none" *ngIf="isToggle == 'all'" class="containsList musicList">
-    <ion-item button detail="false">
-      <ion-avatar slot="start">
-        <ion-img
-          src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><title>ionicons-v5-j</title><path d='M183.83,480a55.2,55.2,0,0,1-32.36-10.55A56.64,56.64,0,0,1,128,423.58a50.26,50.26,0,0,1,34.14-47.73L213,358.73a16.25,16.25,0,0,0,11-15.49V92a32.1,32.1,0,0,1,24.09-31.15L356.48,32.71A22,22,0,0,1,384,54v57.75a32.09,32.09,0,0,1-24.2,31.19l-91.65,23.13A16.24,16.24,0,0,0,256,181.91V424a48.22,48.22,0,0,1-32.78,45.81l-21.47,7.23A56,56,0,0,1,183.83,480Z'/></svg>">
-        </ion-img>
-      </ion-avatar>
-      <ion-label class="songDetails">
-        <h3>Spiritual Gift</h3>
-        <p>Pastor Toye Fakunle</p>
-      </ion-label>
-     
-      <ion-label class="rightDetail">
-        <ion-buttons slot="end">
-          <ion-button>
-            <ion-icon name="play" slot="icon-only"></ion-icon>
+  <ion-list lines="none" [hidden]="isToggle == 'album'" class="containsList musicList">
+    <ion-card *ngFor="let video of videoList">
+      <!-- video placed here -->
+      <ion-card-content>
+        <video #player playsinline preload="auto">
+          <source [src]="video.streamUrl" type="video/mp4" />
+        </video>
+        <div class="bar">
+          <ion-button (click)="openFullscreen(player)" color="light" fill="clear">
+            <ion-icon slot="icon-only" name="easel"></ion-icon>
           </ion-button>
-        </ion-buttons>
-      </ion-label>
-    </ion-item>
+          <ion-button (click)="playOnSide(player)" color="light" fill="clear">
+            <ion-icon slot="icon-only" name="open"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-card-content>
+      <ion-card-header>
+        <ion-card-title>{{video.mediaName}}</ion-card-title>
+        <ion-card-subtitle>{{video.mediaAuthor}}</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
   </ion-list>
 
   <!-- album list -->
-  <ion-list lines="none" *ngIf="isToggle == 'album'"class="album containsList">
+  <ion-list lines="none" [hidden]="isToggle == 'all'" class="album containsList">
     <ion-item button detail="false">
       <ion-avatar slot="start">
-          <ion-icon src='data:image/svg+xml;utf8,<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        <ion-icon src='data:image/svg+xml;utf8,<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
           x="0px" y="0px" viewBox="0 0 480 480" style="enable-background:new 0 0 480 480;" xml:space="preserve">
           <g>
             <g>
@@ -109,13 +110,13 @@
           </g>
           <g>
           </g>
-        </svg>'></ion-icon>      
+        </svg>'></ion-icon>
       </ion-avatar>
       <ion-label class="songDetails">
         <h3>Spiritual Gifts</h3>
         <p>Part 10/10</p>
       </ion-label>
-     
+
       <ion-label class="rightDetail">
         <ion-buttons slot="end">
           <ion-button>

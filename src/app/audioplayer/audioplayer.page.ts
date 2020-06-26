@@ -33,7 +33,7 @@ export class AudioplayerPage implements OnInit {
     // get id of audio passed in query
     this.activatedRoute.paramMap.subscribe(paramMap => {
       if (!paramMap.has('id')) {
-        this.navCtrl.navigateBack('/');
+        this.navCtrl.navigateBack('/tabs/home');
         return;
       }
 
@@ -73,4 +73,22 @@ export class AudioplayerPage implements OnInit {
   touchEnd() {
     this.streamService.touchEnd(this.range)
   }
+
+  // like audio
+  onLike() {
+    this.audioService.Like(this.state.id)
+  }
+  // comment
+  onComment() {
+    this.audioService.Comment(this.state.id)
+  }
+  // share
+  onShare() {
+    this.audioService.Share(this.state.id)
+  }
+  // download audio
+  onDownload() {
+    this.audioService.Download(this.state.id)
+  }
+
 }

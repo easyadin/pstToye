@@ -19,6 +19,7 @@ export class StreamService {
     currTitle: undefined,
     currAlbum: undefined,
     currAuthor: undefined,
+    currId: undefined,
     // progress bar value
     progress: 0,
     // toggle for play/pause button
@@ -55,6 +56,7 @@ export class StreamService {
     this.state.currAlbum = audio.albumName;
     this.state.currTitle = audio.mediaName;
     this.state.currAuthor = audio.mediaAuthor;
+    this.state.currId = audio.id;
 
     // Current audio
     this.currAudio = new Audio(audio.streamUrl);
@@ -191,5 +193,7 @@ export class StreamService {
     // update
     this.stateChange.next(this.state);
   }
+
+   
 
 }

@@ -51,11 +51,29 @@ export class AudioService {
     )
   ];
 
-get AudioList(){
-  return [...this._audioList]
-}
+  get AudioList() {
+    return [...this._audioList]
+  }
 
-getAudio(id: string){
-  return { ...this._audioList.find(a => a.id === id) }
-}
+  getAudio(id: string) {
+    return { ...this._audioList.find(a => a.id === id) }
+  }
+
+  //====== Post to api ======
+  // like audio
+  Like(id) {
+
+  }
+  // comment
+  Comment(id) {
+
+  }
+  // share
+  Share(id) {
+
+  }
+  // download audio
+  Download(id) {
+
+  }
 }
