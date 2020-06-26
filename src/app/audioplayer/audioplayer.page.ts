@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { StreamService } from './../services/stream.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonRange, NavController } from "@ionic/angular";
+import { ActivatedRoute } from '@angular/router';
+import { Media } from '../model/media';
+import { AudioService } from '../services/audio.service';
 
 @Component({
   selector: 'app-audioplayer',
@@ -6,10 +11,66 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./audioplayer.page.scss'],
 })
 export class AudioplayerPage implements OnInit {
+  constructor(
+    private audioService: AudioService,
+    private navCtrl: NavController,
+    private activatedRoute: ActivatedRoute,
+    private streamService: StreamService) {
 
-  constructor() { }
-
-  ngOnInit() {
+    // listen to stream state
+    this.streamService.getState().subscribe(state => {
+      this.state = state;
+    });
   }
 
+  @ViewChild("range", { static: false }) range: IonRange;
+
+  // state to capture streaming state
+  state;
+  RetrievedAudio: Media;
+
+  ngOnInit() {
+    // get id of audio passed in query
+    this.activatedRoute.paramMap.subscribe(paramMap => {
+      if (!paramMap.has('id')) {
+        this.navCtrl.navigateBack('/');
+        return;
+      }
+
+      this.RetrievedAudio = this.audioService.getAudio(paramMap.get('id'))
+      // play audio
+      this.streamService.playAudio(this.RetrievedAudio);
+    })
+  }
+
+
+  // play audio
+  play() {
+    this.streamService.play();
+  }
+  // play next
+  playNext() {
+    this.streamService.playNext();
+  }
+  // play prev
+  playPrev() {
+    this.streamService.playPrev();
+  }
+  // pause current stream
+  pause() {
+    this.streamService.pause();
+  }
+  // on touch ion-range
+  touchStart() {
+    this.streamService.touchStart(this.range)
+  }
+  // on move ion-range
+  // update current seconds text
+  touchMove() {
+    this.streamService.touchMove(this.range)
+  }
+  // on touch release/end
+  touchEnd() {
+    this.streamService.touchEnd(this.range)
+  }
 }

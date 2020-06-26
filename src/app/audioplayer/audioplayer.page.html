@@ -1,9 +1,92 @@
-<ion-header>
+<div class="floatingImage"></div>
+<ion-header class="ion-no-border mainHeader">
   <ion-toolbar>
-    <ion-title>audioplayer</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text="" icon="chevron-down-outline"></ion-back-button>
+    </ion-buttons>
+    <ion-title></ion-title>
+  </ion-toolbar>
+  <ion-toolbar class="overlayIcon">
+    <ion-icon name="musical-note"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content class="mainContainer"[fullscreen]="true">
+  <ion-toolbar>
+    <ion-item lines="none">
+      <ion-label>
+        <h1>{{state?.currTitle}}</h1>
+        <p>{{state?.currAlbum}}</p>
+        <p>{{state?.currAuthor}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-toolbar>
 </ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-list lines="none">
+    <ion-item class="rangeSlider">
+      <ion-range #range (touchmove)="touchMove()" (touchend)="touchEnd()" (touchstart)="touchStart()"
+        max="{{state.maxRangeValue}}" [(ngModel)]="state.currRangeTime">
+      </ion-range>
+    </ion-item>
+
+    <ion-item class="sliderDetails">
+      <ion-label slot="start">
+        <ion-text>
+          {{state?.currSecsText}}
+        </ion-text>
+      </ion-label>
+
+      <ion-label slot="end">
+        <ion-text>
+          {{state?.durationText}}
+        </ion-text>
+      </ion-label>
+    </ion-item>
+
+    <!-- playback buttons -->
+    <ion-item>
+      <ion-buttons>
+        <!-- Prev -->
+        <ion-button fill="none" (click)="playPrev()">
+          <ion-icon name="play-skip-back" style="font-size: 30px;"></ion-icon>
+        </ion-button>
+        <!-- Play-->
+        <ion-button fill="none" (click)="play()" *ngIf="!state?.isPlaying">
+          <ion-icon name="play" style="font-size: 50px;"></ion-icon>
+        </ion-button>
+        <!-- Pause-->
+        <ion-button fill="none" (click)="pause()" *ngIf="state?.isPlaying">
+          <ion-icon name="pause" style="font-size: 50px;"></ion-icon>
+        </ion-button>
+        <!-- Next -->
+        <ion-button fill="none" (click)="playNext()">
+          <ion-icon name="play-skip-forward" style="font-size: 30px;"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+
+    <!-- Engagement buttons-->
+    <ion-item class="engagmentButtons">
+      <ion-buttons>
+        <!-- Prev -->
+        <ion-button fill="none" (click)="onLike()">
+          <ion-icon name="heart-outline" style="font-size: 30px;"></ion-icon>
+        </ion-button>
+        <!-- Play-->
+        <ion-button fill="none" (click)="onComment()">
+          <ion-icon name="chatbox-ellipses-outline" style="font-size: 30px;"></ion-icon>
+        </ion-button>
+        <!-- Pause-->
+        <ion-button fill="none" (click)="onShare()">
+          <ion-icon name="share-social-outline" style="font-size: 30px;"></ion-icon>
+        </ion-button>
+        <!-- Next -->
+        <ion-button fill="none" (click)="onDownload()">
+          <ion-icon name="download-outline" style="font-size: 30px;"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+</ion-footer>

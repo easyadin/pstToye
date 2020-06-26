@@ -8,11 +8,16 @@ const routes: Routes = [
   },
   {
     path: 'audioplayer',
-    loadChildren: () => import('./audioplayer/audioplayer.module').then( m => m.AudioplayerPageModule)
+    children: [
+      {
+        path: ':id',
+        loadChildren: () => import('./audioplayer/audioplayer.module').then(m => m.AudioplayerPageModule)
+      }
+    ]
   },
   {
     path: 'videoplayer',
-    loadChildren: () => import('./videoplayer/videoplayer.module').then( m => m.VideoplayerPageModule)
+    loadChildren: () => import('./videoplayer/videoplayer.module').then(m => m.VideoplayerPageModule)
   },
 ];
 @NgModule({
@@ -21,4 +26,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

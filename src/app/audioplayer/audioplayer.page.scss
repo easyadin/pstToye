@@ -1,0 +1,103 @@
+.mainHeader {
+    * {
+        --background: transparent;
+    }
+}
+
+.floatingImage {
+    background: linear-gradient(rgba(4, 54, 75, 0.8), rgba(4, 54, 75, 0.8)), url(../../assets/pstfamily.jpg);
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    max-height: 300px;
+    background-repeat: no-repeat;
+}
+
+.overlayIcon {
+    text-align: center;
+    ion-icon {
+        font-size: 80px;
+        color: #ffffff;
+        border: 1px solid;
+        border-radius: 100%;
+        padding: 18px;
+        margin: 40px;
+    }
+}
+
+ion-footer {
+    * {
+        --background: transparent;
+        color: #04364b;
+    }
+
+    ion-item {
+        margin-top: 16px;
+
+        &:first-child {
+            margin-top: 0;
+        }
+        &:nth-child(2) {
+            margin-top: -25px;
+        }
+    }
+
+    ion-buttons {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 60%;
+        margin: auto;
+    }
+    .engagmentButtons {
+        ion-buttons {
+            width: 100%;
+        }
+    }
+
+    ion-range {
+        --bar-background: rgba(56, 56, 56, 0.356);
+        --knob-background: #04364b;
+        --bar-background-active: #04364b;
+    }
+}
+
+.sliderDetails {
+    font-size: 12px;
+    padding: 0 9px;
+    ion-label {
+        display: flex;
+
+        &:last-child {
+            justify-content: flex-end;
+        }
+    }
+}
+
+.mainContainer {
+    * {
+        text-align: center;
+        color: #04364b;
+    }
+
+    h1 {
+        font-size: 20px;
+        font-weight: 600;
+        font-size: 32px;
+        font-weight: 600;
+        white-space: normal;
+    }
+    p {
+        font-size: 15px;
+    }
+
+    --background: transparent;
+
+    ion-toolbar {
+        padding-top: 5%;
+        border-top-left-radius: 24px;
+        border-top-right-radius: 24px;
+    }
+}
