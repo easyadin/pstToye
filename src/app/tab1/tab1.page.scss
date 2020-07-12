@@ -1,3 +1,16 @@
+.headerTitle {
+    padding: 16px;
+    padding: 30px;
+    padding-top: 20px;
+    ion-title {
+        padding: 0px;
+    }
+
+    ion-toolbar {
+        --background: transparent;
+    }
+}
+
 .quickListContainer {
     svg {
         max-height: 36px;
@@ -74,7 +87,7 @@ p {
     height: 250px;
     width: 100%;
     background-color: rgba(4, 54, 75, 0.25);
-    --background: rgba(4, 54, 75, .4);
+    --background: rgba(4, 54, 75, 0.4);
 
     * {
         background-color: transparent;
@@ -102,5 +115,30 @@ p {
 
     * {
         --background: transparent;
+    }
+}
+
+.topQuote p {
+    white-space: initial;
+}
+
+.topHeader {
+    background-color: #21353e;
+    --background: #21353e;
+
+    ion-icon {
+        color: #ffffff;
+    }
+}
+
+ion-title {
+    color: #ffffff;
+    padding-left: 16px;
+    text-align: left;
+}
+
+.headerToolbar {
+    p {
+        white-space: initial;
     }
 }
