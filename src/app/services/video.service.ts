@@ -21,6 +21,7 @@ export class VideoService {
       "",
       "false",
       "false",
+      false
     ),
     new Media(
       "3",
@@ -34,6 +35,7 @@ export class VideoService {
       "",
       "false",
       "false",
+      false
     )
     ,
     new Media(
@@ -48,6 +50,7 @@ export class VideoService {
       "",
       "false",
       "false",
+      false
     )
     ,
     new Media(
@@ -62,6 +65,7 @@ export class VideoService {
       "",
       "false",
       "false",
+      false
     )
   ];
 

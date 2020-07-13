@@ -22,6 +22,7 @@ export class AudioService {
       "",
       "false",
       "false",
+      false
     ),
     new Media(
       "2",
@@ -35,6 +36,7 @@ export class AudioService {
       "",
       "false",
       "false",
+      false
     ),
     new Media(
       "3",
@@ -48,6 +50,7 @@ export class AudioService {
       "",
       "false",
       "false",
+      false
     )
   ];
 

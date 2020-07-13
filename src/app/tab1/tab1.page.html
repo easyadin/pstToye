@@ -2,8 +2,8 @@
   <ion-toolbar class="topHeader">
     <ion-title>Welcome</ion-title>
     <ion-buttons slot="primary">
-      <ion-button>
-        <ion-icon name="notifications-outline"></ion-icon>
+      <ion-button routerLink="/notifications">
+        <ion-icon name="notifications"></ion-icon>
         <ion-badge>3</ion-badge>
       </ion-button>
     </ion-buttons>
@@ -12,7 +12,7 @@
 
 
 <ion-header class="ion-no-border">
-  <ion-toolbar class="headerToolbar">
+  <ion-toolbar class="headerToolbar" style="background-image: url(../../assets/brown-book-page-1112048.jpg);">
     <ion-item lines="none" detail="false">
       <ion-label>
         <h1>Mathew 5:24</h1>
@@ -24,7 +24,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="mainContainer">
+<ion-content [fullscreen]="true" class="mainContainer" [scrollEvents]="true" slot="fixed">
   <ion-item lines="none">
     <ion-label>
       <h2>Quick Links</h2>

@@ -1,6 +1,6 @@
 import { StreamService } from './../services/stream.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonRange, NavController } from "@ionic/angular";
+import { IonRange, NavController, MenuController } from "@ionic/angular";
 import { ActivatedRoute } from '@angular/router';
 import { Media } from '../model/media';
 import { AudioService } from '../services/audio.service';
@@ -12,6 +12,7 @@ import { AudioService } from '../services/audio.service';
 })
 export class AudioplayerPage implements OnInit {
   constructor(
+    private menu: MenuController,
     private audioService: AudioService,
     private navCtrl: NavController,
     private activatedRoute: ActivatedRoute,
@@ -30,6 +31,8 @@ export class AudioplayerPage implements OnInit {
   RetrievedAudio: Media;
 
   ngOnInit() {
+    this.menu.enable(false, 'adminSideMenu');
+    this.menu.close('adminSideMenu');
     // get id of audio passed in query
     this.activatedRoute.paramMap.subscribe(paramMap => {
       if (!paramMap.has('id')) {
