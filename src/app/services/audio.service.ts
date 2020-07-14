@@ -11,7 +11,6 @@ export class AudioService {
 
   private _audioList: Media[] = [
     new Media(
-      "1",
       "pstf",
       "Tomorrow",
       "Pastor Toye",
@@ -25,7 +24,6 @@ export class AudioService {
       false
     ),
     new Media(
-      "2",
       "pstf",
       "Buddy",
       "Pastor Toye",
@@ -39,7 +37,6 @@ export class AudioService {
       false
     ),
     new Media(
-      "3",
       "pstf",
       "Freedom",
       "Pastor Toye",

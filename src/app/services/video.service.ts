@@ -10,7 +10,6 @@ export class VideoService {
 
   private _videoList: Media[] = [
     new Media(
-      "1",
       "pstf",
       "Tomorrow",
       "Pastor Toye",
@@ -24,7 +23,6 @@ export class VideoService {
       false
     ),
     new Media(
-      "3",
       "pstf",
       "Freedom",
       "Pastor Toye",
@@ -39,7 +37,6 @@ export class VideoService {
     )
     ,
     new Media(
-      "4",
       "pstf",
       "Freedom",
       "Pastor Toye",
@@ -54,7 +51,6 @@ export class VideoService {
     )
     ,
     new Media(
-      "5",
       "pstf",
       "Freedom",
       "Pastor Toye",

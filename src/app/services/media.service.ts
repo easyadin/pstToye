@@ -8,6 +8,7 @@ import { Media } from '../model/media';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable, Subject } from 'rxjs';
 import { finalize, take } from 'rxjs/operators';
+import { ToastController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -21,13 +22,21 @@ export class MediaService {
     public auth: AngularFireAuth,
     private afs: AngularFirestore,
     private router: Router,
-
+    public toastController: ToastController
   ) {
-    // signup user
+    this.audioCollection = afs.collection<Media>('audio');
+    this.audioItems = this.audioCollection.valueChanges();
 
+    this.videoCollection = afs.collection<Media>('video');
+    this.videoItems = this.videoCollection.valueChanges();
   }
 
+  audioCollection
+  audioItems
+  videoCollection
+  videoItems
 
+  media: Media;
 
   uploadPercent: Observable<number>;
   downloadURL: Observable<string>;
@@ -50,23 +59,62 @@ export class MediaService {
       finalize(() => {
         this.downloadURL = fileRef.getDownloadURL()
         this.downloadURL.subscribe(url => {
-          // if (url) {
-          //   console.log(url)
-          // }
+          // get download url
+          const id = this.afs.createId(); // generate id
+          if (url) {
+            // build media
+            this.media = new Media(
+              id,
+              "",
+              form.name,
+              form.author,
+              mediaType,
+              url,
+              url,
+              "",
+              "", //
+              "", // isLiked? 
+              "", // local download status
+              false // published
+            )
+            // add media data to database audio | video 
+            // this.afs.collection<any>(mediaType).add(JSON.parse(JSON.stringify(this.media))).then(
+            //   resp => {
+            //     this.presentToast(mediaType)
+            //   }
+            // )
+            this.afs.collection(mediaType).doc(id).set(JSON.parse(JSON.stringify(this.media))).then(
+              resp => {
+                this.presentToast(mediaType)
+              }
+            )
+          }
         })
       })
     ).subscribe((task) => {
       this.downloadPercentage = ((task.bytesTransferred / task.totalBytes) * 100);
       this.downloadPercentageSubject.next(this.downloadPercentage)
-      console.log(task)
     })
+  }
 
-    // upload to storage
 
-    // get download url
 
-    // build media
-    // const media = new Media()
-    // add media data to database
+  // alert modal
+  async alertModal(message) {
+    // user not found 
+    const alert = this.alertController.create({
+      cssClass: 'modal-css',
+      message: message,
+      buttons: ['OK']
+    });
+    (await alert).present()
+  }
+
+  async presentToast(mediaType) {
+    const toast = await this.toastController.create({
+      message: `${mediaType} was uploaded successfully`,
+      duration: 3000
+    });
+    toast.present();
   }
 }

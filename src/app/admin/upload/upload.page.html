@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Upload </ion-title>
+    <ion-title>Upload {{mediaType}}</ion-title>
     <ion-progress-bar [value]="uploadPercentage"></ion-progress-bar>
 
     <ion-title slot="end" *ngIf="uploadPercentage">Uploading {{uploadingPercentage}} %</ion-title>
@@ -57,4 +57,11 @@
     </ion-buttons>
   </form>
 
+  <ion-item detail routerLink="/tabs/Home" *ngIf="uploadPercentage">
+    <ion-label>
+      View on App
+    </ion-label>
+  </ion-item>
 </ion-content>
+
+
