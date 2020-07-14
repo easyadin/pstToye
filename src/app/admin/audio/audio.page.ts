@@ -12,9 +12,7 @@ export class AudioPage implements OnInit {
 
   ngOnInit() {
 
-    this.platform.is('mobile') ? ''
-      : this.menu.enable(true, 'adminSideMenu'),
-      this.menu.open('adminSideMenu')
+    
   }
 
 

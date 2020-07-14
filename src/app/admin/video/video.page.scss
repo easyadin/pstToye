@@ -1,0 +1,99 @@
+ion-header {
+    ion-icon {
+        margin-right: 6px;
+    }
+
+    .cta {
+        ion-button {
+            background-color: #21353e;
+            --background: #21353e;
+        }
+    }
+
+    .counter {
+        ion-button {
+            &:first-child {
+                --background: #00b893;
+                background-color: #00b893;
+
+                ion-badge {
+                    background-color: #276156;
+                }
+            }
+            &:last-child {
+                --background: #b86200c2;
+                background-color: #b86200c2;
+                ion-badge {
+                    background-color: #3b2f21;
+                }
+            }
+        }
+
+        ion-text {
+            padding-right: 64px;
+        }
+        ion-badge {
+            position: absolute;
+            right: 0;
+            height: 100%;
+            transform: translate(8px, 0px);
+            border-radius: 0px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            font-size: 14px;
+        }
+    }
+
+    @media (max-width: 800px) {
+        .counter {
+            display: none !important;
+        }
+
+        .cta {
+            justify-content: flex-end;
+            padding-right: 16px;
+        }
+    }
+}
+
+ion-content {
+    ion-card {
+        text-align: center;
+        ion-buttons {
+            width: 100%;
+            min-width: 100%;
+            ion-button {
+                width: 100%;
+                padding: 0;
+                margin: 0;
+                &:last-child {
+                    background: #a4a4a4;
+                }
+                &:first-child {
+                    background: #00b893;
+                    color: #ffffff;
+                }
+            }
+            .unpub {
+                background: #b86200c2;
+                color: #ffffff;
+            }
+        }
+    }
+
+    div {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 800px) {
+    ion-content {
+        div {
+            flex-direction: column;
+        }
+    }
+}

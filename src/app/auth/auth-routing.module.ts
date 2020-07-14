@@ -1,19 +1,17 @@
-import { AdminPageModule } from './admin.module';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AdminPage } from './admin.page';
+import { AuthPage } from './auth.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: AdminPage
-  },
-
+    component: AuthPage
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AdminPageRoutingModule { }
+export class AuthPageRoutingModule {}

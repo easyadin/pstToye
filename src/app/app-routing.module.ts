@@ -48,7 +48,20 @@ const routes: Routes = [
     path: 'quote',
     loadChildren: () => import('./admin/quote/quote.module').then(m => m.QuotePageModule)
   },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthPageModule)
+  },
 
+  {
+    path: 'upload',
+    children: [
+      {
+        path: ':id',
+        loadChildren: () => import('./admin/upload/upload.module').then(m => m.UploadPageModule)
+      }
+    ]
+  },
 ];
 @NgModule({
   imports: [

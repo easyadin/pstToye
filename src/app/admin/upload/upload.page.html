@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Upload </ion-title>
+    <ion-progress-bar [value]="uploadPercentage"></ion-progress-bar>
+
+    <ion-title slot="end" *ngIf="uploadPercentage">Uploading {{uploadingPercentage}} %</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+  <form #uploadMedia="ngForm" (ngSubmit)="onSubmit(uploadMedia.value)">
+
+    <ion-list>
+      <ion-item type="button" lines="none">
+        <ion-card>
+          <!-- media types select file-->
+          <ion-input style="" #media type="file" name="media" accept="{{mediaType}}/*" ngModel #media="ngModel"
+            placeholder="Select" (change)="onFileInput($event)">
+          </ion-input>
+          <ion-card-title>
+            Select {{mediaType}}
+            <ion-icon name="cloud-upload"></ion-icon>
+          </ion-card-title>
+        </ion-card>
+      </ion-item>
+
+      <ion-item lines="none" style="margin-top: 50px;">
+        <ion-label style="text-align: center;">
+          <h1>Enter {{mediaType}} details</h1>
+        </ion-label>
+      </ion-item>
+      <!-- media details -->
+      <ion-item class="ion-padding">
+        <ion-label position="stacked">{{mediaType}} Name</ion-label>
+        <ion-input type="name" ngModel name="name" #name="ngModel" required placeholder="e.g Spiritual Gifts">
+        </ion-input>
+      </ion-item>
+
+      <ion-item class="ion-padding">
+        <ion-label position="stacked"> Album Name </ion-label>
+        <ion-input type="album" ngModel name="album" #album="ngModel" placeholder="optional"></ion-input>
+      </ion-item>
+
+
+      <ion-item class="ion-padding">
+        <ion-label position="stacked"> Author </ion-label>
+        <ion-input type="album" ngModel name="author" #album="ngModel" placeholder="Toye Fakunle set to default">
+        </ion-input>
+      </ion-item>
+    </ion-list>
+
+
+    <ion-buttons class="ion-padding">
+      <ion-button fill="solid" [disabled]="!uploadMedia.valid" type="submit" color="primary">Upload</ion-button>
+    </ion-buttons>
+  </form>
+
+</ion-content>

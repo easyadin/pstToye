@@ -1,5 +1,6 @@
 import { NotificationsPage } from './../notifications/notifications.page';
 import { Component } from '@angular/core';
+import { MenuController } from '@ionic/angular';
 
 
 @Component({
@@ -8,9 +9,9 @@ import { Component } from '@angular/core';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-  constructor() {
 
-  }
+  constructor() { }
+
 
   dailyQuote = `In every #Sword there is a #Word. 
   Sword is #useless when it #lacks word. You don't have a sword if you lack
@@ -18,7 +19,7 @@ export class Tab1Page {
 
   // update qoute
 
-  getQuote(){
-    
+  getQuote() {
+
   }
 }

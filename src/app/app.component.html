@@ -1,14 +1,13 @@
 <ion-app>
-
   <ion-split-pane contentId="main">
-    <ion-menu contentId="main" type="push">
+    <ion-menu contentId="main">
       <ion-header>
         <ion-toolbar translucent>
           <ion-title>Toye Fakunle</ion-title>
         </ion-toolbar>
       </ion-header>
       <ion-content>
-        <ion-menu-toggle>
+        <ion-menu-toggle auto-hide="false">
           <ion-list>
             <ion-item detail="false" button routerLink="audio">
               <ion-icon slot="start" name="musical-note"></ion-icon>
@@ -79,12 +78,27 @@
                 <h2>Quotes</h2>
               </ion-label>
             </ion-item>
+            <ion-item detail="false" button routerLink="/tabs/Home">
+              <ion-icon slot="start" name="phone-portrait"></ion-icon>
+              <ion-label>
+                <h2>View App</h2>
+              </ion-label>
+            </ion-item>
           </ion-list>
         </ion-menu-toggle>
       </ion-content>
+
+      <ion-footer>
+        <ion-toolbar>
+          <ion-buttons>
+            <ion-button>
+              Signout <ion-icon name="log-out-outline" class="ion-padding"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-footer>
     </ion-menu>
 
+    <ion-router-outlet id="main"></ion-router-outlet>
   </ion-split-pane>
-
-  <ion-router-outlet id="main"></ion-router-outlet>
 </ion-app>
