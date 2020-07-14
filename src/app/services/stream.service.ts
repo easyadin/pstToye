@@ -106,10 +106,10 @@ export class StreamService {
   // play next
   playNext() {
     // get current audio index
-    var index = this.audioService.AudioList.findIndex(x => x.mediaName == this.state.currTitle);
+    var index = this.audioService.audioItems.findIndex(x => x.mediaName == this.state.currTitle);
 
     // if current audio is last then play first song
-    if ((index + 1) == this.audioService.AudioList.length) {
+    if ((index + 1) == this.audioService.audioItems.length) {
       this.playAudio(this.audioService.AudioList[0])
     }
 
@@ -126,11 +126,11 @@ export class StreamService {
   // play prev
   playPrev() {
     // get current audio index
-    var index = this.audioService.AudioList.findIndex(x => x.mediaName == this.state.currTitle);
+    var index = this.audioService.audioItems.findIndex(x => x.mediaName == this.state.currTitle);
 
     // if current audio is the first, then play last song
     if (index == 0) {
-      var lastIndex = this.audioService.AudioList.length - 1;
+      var lastIndex = this.audioService.audioItems.length - 1;
       this.playAudio(this.audioService.AudioList[lastIndex])
     }
 

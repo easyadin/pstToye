@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Media } from '../model/media';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { LoadingController, AlertController, ToastController } from '@ionic/angular';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,57 +13,47 @@ import { Media } from '../model/media';
 
 // play | pause | next | prev | share | download | comment | seekTo | getAlbumsList | getAudioList
 export class AudioService {
-  constructor() { }
+  constructor(
+    private afstorage: AngularFireStorage,
+    public loadingController: LoadingController,
+    public alertController: AlertController,
+    public auth: AngularFireAuth,
+    private afs: AngularFirestore,
+    private router: Router,
+    public toastController: ToastController
+  ) {
 
-  private _audioList: Media[] = [
-    new Media(
-      "pstf",
-      "Tomorrow",
-      "Pastor Toye",
-      "audio",
-      "https://www.bensound.com/bensound-music/bensound-tomorrow.mp3",
-      "https://www.bensound.com/bensound-music/bensound-tomorrow.mp3",
-      "",
-      "",
-      "false",
-      "false",
-      false
-    ),
-    new Media(
-      "pstf",
-      "Buddy",
-      "Pastor Toye",
-      "audio",
-      "https://www.bensound.com/bensound-music/bensound-buddy.mp3",
-      "https://www.bensound.com/bensound-music/bensound-buddy.mp3",
-      "",
-      "",
-      "false",
-      "false",
-      false
-    ),
-    new Media(
-      "pstf",
-      "Freedom",
-      "Pastor Toye",
-      "audio",
-      "https://www.bensound.com/bensound-music/bensound-freedom.mp3",
-      "https://www.bensound.com/bensound-music/bensound-freedom.mp3",
-      "",
-      "",
-      "false",
-      "false",
-      false
+
+
+  }
+
+
+  audioCollection;
+  audioItems: Media[] = [];
+
+  //subjects
+  audioSubject = new Subject<Media[]>();
+
+  fetchAudio() {
+    this.afs.collection<Media>('Audio').valueChanges().subscribe(
+      audio => {
+        this.audioItems = audio
+        this.audioSubject.next(this.audioItems);
+      }
     )
-  ];
+  }
 
   get AudioList() {
-    return [...this._audioList]
+    return this.audioSubject.next([...this.audioItems]);
   }
 
   getAudio(id: string) {
-    return { ...this._audioList.find(a => a.id === id) }
+    return { ...this.audioItems.find(a => a.id === id) }
   }
+
+
+
+
 
   //====== Post to api ======
   // like audio

@@ -14,7 +14,6 @@ import { ToastController } from '@ionic/angular';
   providedIn: 'root'
 })
 export class MediaService {
-
   constructor(
     private afstorage: AngularFireStorage,
     public loadingController: LoadingController,
@@ -29,6 +28,13 @@ export class MediaService {
 
     this.videoCollection = afs.collection<Media>('video');
     this.videoItems = this.videoCollection.valueChanges();
+
+    // counters 
+    // this.afs.collection<Media>('Audio', ref => ref.where("published", "==", true)).valueChanges()
+    // this.afs.collection<Media>('Audio', ref => ref.where("published", "==", false)).valueChanges()
+
+    // this.afs.collection<Media>('Audio', ref => ref.where("published", "==", true)).valueChanges()
+    // this.afs.collection<Media>('Audio', ref => ref.where("published", "==", false)).valueChanges()
   }
 
   audioCollection
@@ -98,6 +104,48 @@ export class MediaService {
   }
 
 
+  Counter = {
+    pending: [],
+    published: [],
+  }
+  CounterSubject = new Subject<any>();
+
+  // return the pending and published counts for all mediaTypes
+  getCounter(mediaType) {
+    this.afs.collection<Media>(mediaType, ref => ref.where("published", "==", true)).valueChanges()
+      .subscribe(p => {
+        this.Counter.published = p
+        this.CounterSubject.next(this.Counter);
+      });
+
+    this.afs.collection<Media>(mediaType, ref => ref.where("published", "==", false)).valueChanges()
+      .subscribe(p => {
+        this.Counter.pending = p
+        this.CounterSubject.next(this.Counter);
+      });
+  }
+
+
+  // modify status - Publish | unpublish | delete
+
+  // delete media
+  delete(id, mediaType) {
+    this.afs.collection(mediaType).doc(id).delete();
+  }
+
+  // publish media
+  publish(id, mediaType) {
+    this.afs.collection(mediaType).doc(id).update({
+      "published": true
+    })
+  }
+
+  // unpublish
+  unPublish(id, mediaType) {
+    this.afs.collection(mediaType).doc(id).update({
+      "published": false
+    })
+  }
 
   // alert modal
   async alertModal(message) {
