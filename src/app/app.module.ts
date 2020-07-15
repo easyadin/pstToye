@@ -16,6 +16,9 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFireDatabaseModule } from "@angular/fire/database";
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
+import { File } from '@ionic-native/file/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,10 +28,13 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+
+
   ],
 
   providers: [
+    FileTransfer, File,FilePath,
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

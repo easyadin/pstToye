@@ -1,5 +1,6 @@
+import { Subscription } from 'rxjs';
 import { VideoService } from './../services/video.service';
-import { Component, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren, QueryList, OnDestroy } from '@angular/core';
 import { Media } from '../model/media';
 
 @Component({
@@ -7,12 +8,13 @@ import { Media } from '../model/media';
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss']
 })
-export class Tab3Page implements OnInit {
-
+export class Tab3Page implements OnInit, OnDestroy {
   constructor(private videoService: VideoService) { }
 
   isToggle = 'all';
   videoList: Media[] = [];
+  videoSub: Subscription;
+
   @ViewChildren('player') videoPlayers: QueryList<any>;
 
   currentPLaying = null;
@@ -23,7 +25,12 @@ export class Tab3Page implements OnInit {
   }
 
   ngOnInit() {
-    this.videoList = this.videoService.VideoList;
+    this.videoSub = this.videoService.videoSubject.subscribe(
+      medialist => {
+        this.videoList = medialist
+      }
+    )
+    this.videoService.fetchVideo();
   }
 
   didScroll() {
@@ -82,4 +89,7 @@ export class Tab3Page implements OnInit {
     );
   }
 
+  ngOnDestroy() {
+    this.videoSub.unsubscribe();
+  }
 }

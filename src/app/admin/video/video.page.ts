@@ -30,7 +30,7 @@ export class VideoPage implements OnInit, OnDestroy {
         this.videoList = medialist
       }
     )
-    this.videoService.fetchAudio();
+    this.videoService.fetchVideo();
 
     // get counters
     this.counterSub = this.mediaService.CounterSubject.subscribe(counter => {

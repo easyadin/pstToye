@@ -1,22 +1,26 @@
+import { MediaService } from 'src/app/services/media.service';
 import { StreamService } from './../services/stream.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { IonRange, NavController, MenuController } from "@ionic/angular";
 import { ActivatedRoute } from '@angular/router';
 import { Media } from '../model/media';
 import { AudioService } from '../services/audio.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-audioplayer',
   templateUrl: './audioplayer.page.html',
   styleUrls: ['./audioplayer.page.scss'],
 })
-export class AudioplayerPage implements OnInit {
+export class AudioplayerPage implements OnInit, OnDestroy {
   constructor(
     private menu: MenuController,
     private audioService: AudioService,
     private navCtrl: NavController,
     private activatedRoute: ActivatedRoute,
-    private streamService: StreamService) {
+    private streamService: StreamService,
+    private mediaService: MediaService
+  ) {
 
     // listen to stream state
     this.streamService.getState().subscribe(state => {
@@ -24,15 +28,22 @@ export class AudioplayerPage implements OnInit {
     });
   }
 
+
   @ViewChild("range", { static: false }) range: IonRange;
 
   // state to capture streaming state
   state;
   RetrievedAudio: Media;
 
-  ngOnInit() {
-    this.menu.enable(false, 'adminSideMenu');
-    this.menu.close('adminSideMenu');
+  audioSub: Subscription;
+
+  ngOnInit() { }
+
+  ionViewWillEnter() {
+
+  }
+
+  ionViewDidEnter() {
     // get id of audio passed in query
     this.activatedRoute.paramMap.subscribe(paramMap => {
       if (!paramMap.has('id')) {
@@ -40,12 +51,15 @@ export class AudioplayerPage implements OnInit {
         return;
       }
 
-      this.RetrievedAudio = this.audioService.getAudio(paramMap.get('id'))
-      // play audio
-      this.streamService.playAudio(this.RetrievedAudio);
+      // retrieve audio 
+      this.audioSub = this.audioService.audioSubject.subscribe(media => {
+        this.RetrievedAudio = media.find(m => m.id === paramMap.get('id'))
+
+        // play audio
+        this.streamService.playAudio(this.RetrievedAudio);
+      })
     })
   }
-
 
   // play audio
   play() {
@@ -79,19 +93,22 @@ export class AudioplayerPage implements OnInit {
 
   // like audio
   onLike() {
-    this.audioService.Like(this.state.id)
+    // this.audioService.Like(this.state.id)
   }
   // comment
   onComment() {
-    this.audioService.Comment(this.state.id)
+    // this.audioService.Comment(this.state.id)
   }
   // share
   onShare() {
-    this.audioService.Share(this.state.id)
+    // this.audioService.Share(this.state.id)
   }
   // download audio
   onDownload() {
-    this.audioService.Download(this.state.id)
+    this.mediaService.Download(this.RetrievedAudio)
   }
 
+  ngOnDestroy() {
+    this.audioSub.unsubscribe();
+  }
 }

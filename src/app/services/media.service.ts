@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingController, AlertController, Platform } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { User } from 'firebase';
@@ -9,6 +9,10 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable, Subject } from 'rxjs';
 import { finalize, take } from 'rxjs/operators';
 import { ToastController } from '@ionic/angular';
+import { saveAs } from 'file-saver';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+import { File } from '@ionic-native/file/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +25,11 @@ export class MediaService {
     public auth: AngularFireAuth,
     private afs: AngularFirestore,
     private router: Router,
-    public toastController: ToastController
+    public toastController: ToastController,
+    private platform: Platform,
+    private transfer: FileTransfer,
+    private file: File,
+    private filePath: FilePath
   ) { }
 
   audioCollection
@@ -157,6 +165,13 @@ export class MediaService {
     toast.present();
   }
 
+  async presentToast2(mediaType, message) {
+    const toast = await this.toastController.create({
+      message: `${mediaType} ${message}`,
+      duration: 3000
+    });
+    toast.present();
+  }
 
 
 
@@ -174,7 +189,33 @@ export class MediaService {
 
   }
   // download audio
-  Download(id) {
+  Download(media: Media) {
+    console.log(media)
+    if (this.platform.is('hybrid')) {
+      const url = media.downloadUrl;
+      this.transfer.create().download(url, this.file.dataDirectory +"/toye/")
+        .then((entry) => {
+          this.presentToast2(media.mediaType, "downloaded")
+          // entry.toURL()
+        }, (error) => {
+          this.presentToast2(media.mediaType, "Error")
+        });
+    }
+    else {
+      // cordova or capacitor
+      if (media.mediaType == "Audio") {
+        let blob = new Blob([media.downloadUrl], { type: 'audio/ogg' })
+        saveAs(media.downloadUrl)
+      }
+      else {
+        let blob = new Blob([media.downloadUrl], { type: 'video\/mp4' })
+        saveAs(media.downloadUrl, media.mediaName)
+      }
+
+      // this.download
+    }
+
 
   }
+
 }

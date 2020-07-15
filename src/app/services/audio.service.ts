@@ -21,13 +21,17 @@ export class AudioService {
     private afs: AngularFirestore,
     private router: Router,
     public toastController: ToastController
-  ) { }
+  ) {
+
+    this.fetchAudio();
+    this.audioSubject.next(this.audioItems);
+  }
 
   audioCollection;
   audioItems: Media[] = [];
 
   //subjects
-  audioSubject = new Subject<Media[]>();
+  public audioSubject = new Subject<Media[]>();
 
   fetchAudio() {
     this.afs.collection<Media>('Audio').valueChanges().subscribe(
@@ -36,6 +40,10 @@ export class AudioService {
         this.audioSubject.next(this.audioItems);
       }
     )
+  }
+
+  public fetchCurrentAudio() {
+    return this.afs.collection<Media>('Audio').valueChanges()
   }
 
   get AudioList() {

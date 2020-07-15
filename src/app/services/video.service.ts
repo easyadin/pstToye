@@ -27,7 +27,7 @@ export class VideoService {
   //subjects
   videoSubject = new Subject<Media[]>();
 
-  fetchAudio() {
+  fetchVideo() {
     this.afs.collection<Media>('Video').valueChanges().subscribe(
       audio => {
         this.videoItems = audio
@@ -36,11 +36,11 @@ export class VideoService {
     )
   }
 
-  get AudioList() {
+  get VideoList() {
     return this.videoSubject.next([...this.videoItems]);
   }
 
-  getAudio(id: string) {
+  getVideo(id: string) {
     return { ...this.videoItems.find(a => a.id === id) }
   }
 
