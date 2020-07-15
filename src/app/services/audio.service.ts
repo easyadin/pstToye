@@ -21,12 +21,7 @@ export class AudioService {
     private afs: AngularFirestore,
     private router: Router,
     public toastController: ToastController
-  ) {
-
-
-
-  }
-
+  ) { }
 
   audioCollection;
   audioItems: Media[] = [];
@@ -55,21 +50,4 @@ export class AudioService {
 
 
 
-  //====== Post to api ======
-  // like audio
-  Like(id) {
-
-  }
-  // comment
-  Comment(id) {
-
-  }
-  // share
-  Share(id) {
-
-  }
-  // download audio
-  Download(id) {
-
-  }
 }

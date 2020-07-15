@@ -33,7 +33,7 @@ export class AudioPage implements OnInit, OnDestroy {
     this.audioService.fetchAudio();
 
     // get counters
-    this.mediaService.CounterSubject.subscribe(counter => {
+    this.counterSub = this.mediaService.CounterSubject.subscribe(counter => {
       this.pending = counter.pending.length
       this.published = counter.published.length
     })

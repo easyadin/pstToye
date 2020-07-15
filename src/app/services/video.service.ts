@@ -1,75 +1,47 @@
 import { Injectable } from '@angular/core';
 import { Media } from '../model/media';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { LoadingController, AlertController, ToastController } from '@ionic/angular';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VideoService {
+  constructor(
+    private afstorage: AngularFireStorage,
+    public loadingController: LoadingController,
+    public alertController: AlertController,
+    public auth: AngularFireAuth,
+    private afs: AngularFirestore,
+    private router: Router,
+    public toastController: ToastController
+  ) { }
 
-  constructor() { }
+  videoCollection;
+  videoItems: Media[] = [];
 
-  private _videoList: Media[] = [
-    new Media(
-      "pstf",
-      "Tomorrow",
-      "Pastor Toye",
-      "audio",
-      "../../assets/test.mp4",
-      "pstToye\src\assets\test.mp4",
-      "",
-      "",
-      "false",
-      "false",
-      false
-    ),
-    new Media(
-      "pstf",
-      "Freedom",
-      "Pastor Toye",
-      "audio",
-      "https://vod-progressive.akamaized.net/exp=1593180300~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F3149%2F15%2F390745576%2F1652742212.mp4~hmac=c69e6f40f647e052c5f46aca4d70470e3848f614e7aba68feeb7070b01e72a0d/vimeo-prod-skyfire-std-us/01/3149/15/390745576/1652742212.mp4?download=1&filename=production+ID%3A3722010.mp4",
-      "https://vod-progressive.akamaized.net/exp=1593180300~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F3149%2F15%2F390745576%2F1652742212.mp4~hmac=c69e6f40f647e052c5f46aca4d70470e3848f614e7aba68feeb7070b01e72a0d/vimeo-prod-skyfire-std-us/01/3149/15/390745576/1652742212.mp4?download=1&filename=production+ID%3A3722010.mp4",
-      "",
-      "",
-      "false",
-      "false",
-      false
-    )
-    ,
-    new Media(
-      "pstf",
-      "Freedom",
-      "Pastor Toye",
-      "audio",
-      "https://vod-progressive.akamaized.net/exp=1593180300~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F3149%2F15%2F390745576%2F1652742212.mp4~hmac=c69e6f40f647e052c5f46aca4d70470e3848f614e7aba68feeb7070b01e72a0d/vimeo-prod-skyfire-std-us/01/3149/15/390745576/1652742212.mp4?download=1&filename=production+ID%3A3722010.mp4",
-      "https://vod-progressive.akamaized.net/exp=1593180300~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F3149%2F15%2F390745576%2F1652742212.mp4~hmac=c69e6f40f647e052c5f46aca4d70470e3848f614e7aba68feeb7070b01e72a0d/vimeo-prod-skyfire-std-us/01/3149/15/390745576/1652742212.mp4?download=1&filename=production+ID%3A3722010.mp4",
-      "",
-      "",
-      "false",
-      "false",
-      false
-    )
-    ,
-    new Media(
-      "pstf",
-      "Freedom",
-      "Pastor Toye",
-      "audio",
-      "https://vod-progressive.akamaized.net/exp=1593180300~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F3149%2F15%2F390745576%2F1652742212.mp4~hmac=c69e6f40f647e052c5f46aca4d70470e3848f614e7aba68feeb7070b01e72a0d/vimeo-prod-skyfire-std-us/01/3149/15/390745576/1652742212.mp4?download=1&filename=production+ID%3A3722010.mp4",
-      "https://vod-progressive.akamaized.net/exp=1593180300~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F3149%2F15%2F390745576%2F1652742212.mp4~hmac=c69e6f40f647e052c5f46aca4d70470e3848f614e7aba68feeb7070b01e72a0d/vimeo-prod-skyfire-std-us/01/3149/15/390745576/1652742212.mp4?download=1&filename=production+ID%3A3722010.mp4",
-      "",
-      "",
-      "false",
-      "false",
-      false
-    )
-  ];
+  //subjects
+  videoSubject = new Subject<Media[]>();
 
-  get VideoList() {
-    return [...this._videoList]
+  fetchAudio() {
+    this.afs.collection<Media>('Video').valueChanges().subscribe(
+      audio => {
+        this.videoItems = audio
+        this.videoSubject.next(this.videoItems);
+      }
+    )
   }
 
-  getVideo(id: string) {
-    return { ...this._videoList.find(a => a.id === id) }
+  get AudioList() {
+    return this.videoSubject.next([...this.videoItems]);
   }
+
+  getAudio(id: string) {
+    return { ...this.videoItems.find(a => a.id === id) }
+  }
+
 }

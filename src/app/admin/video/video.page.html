@@ -16,13 +16,13 @@
         <ion-text>
           Published
         </ion-text>
-        <ion-badge>3000</ion-badge>
+        <ion-badge>{{published}}</ion-badge>
       </ion-button>
       <ion-button fill="solid">
         <ion-text>
           Pending
         </ion-text>
-        <ion-badge>3000</ion-badge>
+        <ion-badge>{{pending}}</ion-badge>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -31,16 +31,18 @@
 <ion-content>
   <!-- media list -->
   <div>
-    <ion-card>
+    <!-- -->
+    <ion-card *ngFor="let video of videoList">
       <!-- CTA-->
       <ion-card-content>
-        <ion-card-title> Spiritual Growth </ion-card-title>
-        <ion-card-subtitle> Pastor Toye Fakunle </ion-card-subtitle>
+        <ion-card-title> {{video.mediaName}} </ion-card-title>
+        <ion-card-subtitle>{{video.mediaAuthor}} </ion-card-subtitle>
       </ion-card-content>
       <ion-buttons>
-        <ion-button>Publish</ion-button>
-        <ion-button class="unpub" *ngIf="">Unpublish</ion-button>
-        <ion-button>Delete</ion-button>
+        <ion-button *ngIf="video.published == false" (click)="onPublish(video.id,video.mediaType)">Publish</ion-button>
+        <ion-button class="unpub" *ngIf="video.published == true" (click)="onUnpublish(video.id,video.mediaType)">
+          Unpublish</ion-button>
+        <ion-button (click)="onDelete(video.id,video.mediaType)">Delete</ion-button>
       </ion-buttons>
     </ion-card>
   </div>

@@ -22,20 +22,7 @@ export class MediaService {
     private afs: AngularFirestore,
     private router: Router,
     public toastController: ToastController
-  ) {
-    this.audioCollection = afs.collection<Media>('audio');
-    this.audioItems = this.audioCollection.valueChanges();
-
-    this.videoCollection = afs.collection<Media>('video');
-    this.videoItems = this.videoCollection.valueChanges();
-
-    // counters 
-    // this.afs.collection<Media>('Audio', ref => ref.where("published", "==", true)).valueChanges()
-    // this.afs.collection<Media>('Audio', ref => ref.where("published", "==", false)).valueChanges()
-
-    // this.afs.collection<Media>('Audio', ref => ref.where("published", "==", true)).valueChanges()
-    // this.afs.collection<Media>('Audio', ref => ref.where("published", "==", false)).valueChanges()
-  }
+  ) { }
 
   audioCollection
   audioItems
@@ -51,10 +38,11 @@ export class MediaService {
 
   // upload media: 
   uploadMedia(form, mediaType, mediaDetails) {
+    const id = this.afs.createId(); // generate id
     // get the form details >> album,author,media,name
     var createAt = Date.now();
     const file = mediaDetails;
-    const filePath = `${mediaType}/${createAt}`; // seperate path for audio & video
+    const filePath = `${mediaType}/${id}`; // seperate path for audio & video
     const fileRef = this.afstorage.ref(filePath);
     const task = this.afstorage.upload(filePath, file); // upload
 
@@ -66,7 +54,7 @@ export class MediaService {
         this.downloadURL = fileRef.getDownloadURL()
         this.downloadURL.subscribe(url => {
           // get download url
-          const id = this.afs.createId(); // generate id
+
           if (url) {
             // build media
             this.media = new Media(
@@ -130,6 +118,9 @@ export class MediaService {
 
   // delete media
   delete(id, mediaType) {
+    // delete from storage
+    this.afstorage.ref(`${mediaType}/${id}`).delete();
+    // delete from database
     this.afs.collection(mediaType).doc(id).delete();
   }
 
@@ -164,5 +155,26 @@ export class MediaService {
       duration: 3000
     });
     toast.present();
+  }
+
+
+
+
+  //====== Post to api ======
+  // like audio
+  Like(id) {
+
+  }
+  // comment
+  Comment(id) {
+
+  }
+  // share
+  Share(id) {
+
+  }
+  // download audio
+  Download(id) {
+
   }
 }
