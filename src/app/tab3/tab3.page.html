@@ -10,7 +10,7 @@
 <ion-content [fullscreen]="true" class="mainContainer" [scrollEvents]="true" (ionScroll)="didScroll($event)">
 
   <ion-item lines="none">
-    <ion-searchbar></ion-searchbar>
+    <ion-searchbar animated [(ngModel)]="searchText"></ion-searchbar>
   </ion-item>
 
   <!-- categories -->
@@ -42,7 +42,7 @@
 
   <!-- music list -->
   <ion-list lines="none" [hidden]="isToggle == 'album'" class="containsList musicList">
-    <ion-card *ngFor="let video of videoList">
+    <ion-card *ngFor="let video of videoList | appFilter: searchText">
       <ion-buttons class="download_btn">
         <ion-button (click)="download(video)">
           <ion-icon name="download-outline"></ion-icon>

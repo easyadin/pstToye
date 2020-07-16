@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Tab2Page } from './tab2.page';
-
+import { FilterPipe } from './../services/filter.pipe';
 
 import { Tab2PageRoutingModule } from './tab2-routing.module';
 
@@ -16,6 +16,6 @@ import { Tab2PageRoutingModule } from './tab2-routing.module';
 
     Tab2PageRoutingModule
   ],
-  declarations: [Tab2Page]
+  declarations: [Tab2Page,FilterPipe]
 })
 export class Tab2PageModule {}

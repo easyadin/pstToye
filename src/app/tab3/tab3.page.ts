@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { VideoService } from './../services/video.service';
 import { Component, OnInit, ViewChild, ViewChildren, QueryList, OnDestroy } from '@angular/core';
 import { Media } from '../model/media';
+import { FilterPipe } from './../services/filter.pipe';
 
 @Component({
   selector: 'app-tab3',
@@ -13,6 +14,8 @@ export class Tab3Page implements OnInit, OnDestroy {
   constructor(private videoService: VideoService,
     private mediaService: MediaService
   ) { }
+
+  searchText = '';
 
   isToggle = 'all';
   videoList: Media[] = [];
