@@ -102,11 +102,18 @@ video {
     width: 100%;
     text-align: center;
     transform: translate(0%, -100%);
- }
+}
 
 .musicList {
     ion-card-content {
-        padding:0px;
+        padding: 0px;
     }
 }
 
+.download_btn {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    transform: translate(-4px, -15px);
+    z-index: 9999999999;
+}

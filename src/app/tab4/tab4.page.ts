@@ -9,7 +9,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
   styleUrls: ['./tab4.page.scss'],
 })
 export class Tab4Page implements OnInit, OnDestroy {
-  constructor(private devotionaService: DevotionalService) { }
+  constructor(private devotionaService: DevotionalService) {
+    
+   }
 
 
   devotionalList: Devotional[] = []

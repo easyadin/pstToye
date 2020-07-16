@@ -72,7 +72,7 @@ export class MediaService {
               id,
               "",
               form.name,
-              form.author,
+              form.author || "Toye Fakunle",
               mediaType,
               url,
               url,

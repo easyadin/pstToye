@@ -4,7 +4,7 @@ export class Media {
       public id: string,
       public alias: string, // a tag to easily find all audio in case downloaded to phone
       public mediaName: string,
-      public mediaAuthor: string,
+      public mediaAuthor: 'Toye Fakunle',
       public mediaType: string, // video | audio | devotional
       public streamUrl: string,
       public downloadUrl: string,
@@ -22,7 +22,7 @@ export class Devotional {
    constructor(
       public id: string,
       public mediaType: string,
-      public title:string,
+      public title: string,
       public scripture: string,
       public content: string,
       public createdAt: string,

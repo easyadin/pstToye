@@ -43,19 +43,21 @@
   <!-- music list -->
   <ion-list lines="none" [hidden]="isToggle == 'album'" class="containsList musicList">
     <ion-card *ngFor="let video of videoList">
+      <ion-buttons class="download_btn">
+        <ion-button (click)="download(video)">
+          <ion-icon name="download-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
       <!-- video placed here -->
       <ion-card-content>
-        <video #player playsinline preload="auto">
+        <video #player playsinline preload="auto" (click)="openFullscreen(player)">
           <source [src]="video.streamUrl" type="video/mp4" />
         </video>
-        <div class="bar">
+        <!-- <div class="overlay">
           <ion-button (click)="openFullscreen(player)" color="light" fill="clear">
             <ion-icon slot="icon-only" name="easel"></ion-icon>
           </ion-button>
-          <ion-button (click)="playOnSide(player)" color="light" fill="clear">
-            <ion-icon slot="icon-only" name="open"></ion-icon>
-          </ion-button>
-        </div>
+        </div> -->
       </ion-card-content>
       <ion-card-header>
         <ion-card-title>{{video.mediaName}}</ion-card-title>
@@ -65,7 +67,7 @@
   </ion-list>
 
   <!-- album list -->
-  <ion-list lines="none" [hidden]="isToggle == 'all'" class="album containsList">
+  <ion-list lines="none" [hidden]="isToggle == 'all'" class="album containsList" *ngIf="">
     <ion-item button detail="false">
       <ion-avatar slot="start">
         <ion-icon src='data:image/svg+xml;utf8,<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"

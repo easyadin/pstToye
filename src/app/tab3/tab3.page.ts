@@ -1,3 +1,4 @@
+import { MediaService } from 'src/app/services/media.service';
 import { Subscription } from 'rxjs';
 import { VideoService } from './../services/video.service';
 import { Component, OnInit, ViewChild, ViewChildren, QueryList, OnDestroy } from '@angular/core';
@@ -9,7 +10,9 @@ import { Media } from '../model/media';
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page implements OnInit, OnDestroy {
-  constructor(private videoService: VideoService) { }
+  constructor(private videoService: VideoService,
+    private mediaService: MediaService
+  ) { }
 
   isToggle = 'all';
   videoList: Media[] = [];
@@ -55,7 +58,7 @@ export class Tab3Page implements OnInit, OnDestroy {
       if (inView) {
         this.currentPLaying = nativeElement;
         this.currentPLaying.muted = true;
-        this.currentPLaying.play();
+        // this.currentPLaying.play();
       }
     });
   }
@@ -87,6 +90,12 @@ export class Tab3Page implements OnInit, OnDestroy {
       rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
       rect.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
+  }
+
+
+
+  download(media: Media) {
+    this.mediaService.Download(media)
   }
 
   ngOnDestroy() {

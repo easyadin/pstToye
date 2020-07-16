@@ -64,7 +64,7 @@
   </ion-list>
 
   <!-- album list -->
-  <ion-list lines="none" [hidden]="isToggle == 'all'" class="album containsList">
+  <ion-list lines="none" [hidden]="isToggle == 'all'" class="album containsList" *ngIf="">
     <ion-item button detail="false">
       <ion-avatar slot="start">
           <ion-icon name="musical-notes"></ion-icon>      
