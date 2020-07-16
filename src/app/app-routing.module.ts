@@ -68,6 +68,15 @@ const routes: Routes = [
       }
     ]
   },
+  {
+    path: 'devotionreader',
+    children: [
+      {
+        path: ':id',
+        loadChildren: () => import('./devotionreader/devotionreader.module').then(m => m.DevotionreaderPageModule),
+      }
+    ]
+  },
 ];
 @NgModule({
   imports: [

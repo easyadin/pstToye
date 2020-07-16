@@ -14,6 +14,7 @@ export class VideoPage implements OnInit, OnDestroy {
   constructor(
     private videoService: VideoService,
     private mediaService: MediaService,
+    private menu: MenuController
   ) { }
 
   videoSub: Subscription;
@@ -23,6 +24,10 @@ export class VideoPage implements OnInit, OnDestroy {
   pending = 0;
   published = 0;
   counterSub: Subscription;
+
+  ionViewWillEnter() {
+    this.menu.enable(true)
+  }
 
   ngOnInit() {
     this.videoSub = this.videoService.videoSubject.subscribe(

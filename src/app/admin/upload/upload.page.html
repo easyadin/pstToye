@@ -12,7 +12,6 @@
 
 
 <ion-content>
-
   <form #uploadMedia="ngForm" (ngSubmit)="onSubmit(uploadMedia.value)">
     <!-- Devotional & Quote -->
     <ion-list *ngIf="mediaType =='Quote' || mediaType =='Devotional'">
@@ -29,14 +28,18 @@
         </ion-input>
       </ion-item>
 
+      <ion-item class="ion-padding" *ngIf="mediaType =='Devotional'">
+        <ion-label position="stacked">{{mediaType}} Title</ion-label>
+        <ion-input type="text" ngModel name="title" #title="ngModel" required placeholder="e.g Spiritual Gifts">
+        </ion-input>
+      </ion-item>
+
       <ion-item class="ion-padding">
         <ion-label position="stacked">{{mediaType}} Content</ion-label>
         <ion-textarea type="text" ngModel name="content" #content="ngModel" required placeholder="e.g Your message">
         </ion-textarea>
       </ion-item>
     </ion-list>
-
-
 
     <ion-list *ngIf="mediaType !='Quote' && mediaType !='Devotional'">
       <ion-item type="button" lines="none">

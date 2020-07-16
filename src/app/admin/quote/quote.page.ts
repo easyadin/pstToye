@@ -1,6 +1,5 @@
 import { Devotional } from './../../model/media';
 import { Subscription } from 'rxjs';
-import { QuoteService } from './../../services/quote.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MenuController, Platform } from '@ionic/angular';
 import { QuotesService } from 'src/app/services/quotes.service';
@@ -24,7 +23,13 @@ export class QuotePage implements OnInit, OnDestroy {
   published = 0;
   counterSub: Subscription;
 
+  ionViewWillEnter() {
+    this.menu.enable(true)
+  }
+
   ngOnInit() {
+    this.menu.enable(true)
+
     this.quoteSub = this.quoteService.quoteSubject.subscribe(
       quotes => {
         this.quoteList = quotes

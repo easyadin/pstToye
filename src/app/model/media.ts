@@ -22,8 +22,10 @@ export class Devotional {
    constructor(
       public id: string,
       public mediaType: string,
+      public title:string,
       public scripture: string,
       public content: string,
+      public createdAt: string,
       public published: boolean
    ) { }
 }

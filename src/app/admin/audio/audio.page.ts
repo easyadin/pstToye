@@ -25,6 +25,10 @@ export class AudioPage implements OnInit, OnDestroy {
   published = 0;
   counterSub: Subscription;
 
+  ionViewWillEnter() {
+    this.menu.enable(true)
+  }
+  
   ngOnInit() {
     this.menu.enable(true)
 

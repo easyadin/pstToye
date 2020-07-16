@@ -24,6 +24,10 @@ export class UploadPage implements OnInit, OnDestroy {
 
   percentageSubscription: Subscription;
 
+  ionViewWillEnter() {
+    this.menu.enable(true)
+  }
+  
   ngOnInit() {
     this.menu.enable(true)
     this.route.paramMap.subscribe(paramap => {

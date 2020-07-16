@@ -28,7 +28,6 @@ export class AudioplayerPage implements OnInit, OnDestroy {
     });
   }
 
-
   @ViewChild("range", { static: false }) range: IonRange;
 
   // state to capture streaming state

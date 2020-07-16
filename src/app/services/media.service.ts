@@ -1,4 +1,3 @@
-import { Devotional } from './../model/media';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { LoadingController, AlertController, Platform } from '@ionic/angular';
@@ -105,20 +104,23 @@ export class MediaService {
   }
 
   // upload devotional & quotes
-  uploadMessage(form, mediaType) {
+  uploadMessage(form, mediaType: string) {
     const id = this.afs.createId(); // generate id
+
     // build media
     let media = new Devotional(
       id,
       mediaType,
+      form.title,
       form.text,
       form.content,
+      new Date().toLocaleString(),
       false
     )
     this.afs.collection(mediaType).doc(id).set(JSON.parse(JSON.stringify(media))).then(
       resp => {
         this.presentToast(mediaType)
-        this.router.navigateByUrl('/quote')
+        this.router.navigateByUrl(mediaType.toLowerCase())
       }
     )
   }

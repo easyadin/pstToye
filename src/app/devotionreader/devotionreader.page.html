@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/Devotional"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{retrievedDevotion.scripture}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-label>
+  <h2>{{retrievedDevotion.createdAt}}</h2>
+  <p>{{retrievedDevotion.content}}</p>
+</ion-label>
+</ion-content>
