@@ -14,11 +14,9 @@
 <ion-header class="ion-no-border">
   <ion-toolbar class="headerToolbar" style="background-image: url(../../assets/brown-book-page-1112048.jpg);">
     <ion-item lines="none" detail="false">
-      <ion-label>
-        <h1>Mathew 5:24</h1>
-        <p> In every #Sword there is a #Word. Sword is #useless when it #lacks word. You don't have a sword if you lack
-          the
-          word</p>
+      <ion-label *ngFor="let d of dailyQuote">
+        <h1>{{d.scripture}}</h1>
+        <p> {{d.content}}</p>
       </ion-label>
     </ion-item>
   </ion-toolbar>

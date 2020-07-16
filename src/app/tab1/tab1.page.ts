@@ -1,6 +1,9 @@
+import { Subscription } from 'rxjs';
+import { Devotional } from './../model/media';
 import { NotificationsPage } from './../notifications/notifications.page';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
+import { QuotesService } from '../services/quotes.service';
 
 
 @Component({
@@ -8,18 +11,24 @@ import { MenuController } from '@ionic/angular';
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page {
+export class Tab1Page implements OnInit, OnDestroy {
+  constructor(private quoteService: QuotesService) { }
 
-  constructor() { }
-
-
-  dailyQuote = `In every #Sword there is a #Word. 
-  Sword is #useless when it #lacks word. You don't have a sword if you lack
-  the word`
-
+  dailyQuote: Devotional[];
+  quoteSub: Subscription
   // update qoute
 
-  getQuote() {
 
+  ngOnInit(): void {
+    this.quoteSub = this.quoteService.quoteSubject.subscribe(
+      q => {
+        this.dailyQuote = q.filter(q => q.published === true)
+      }
+    )
+    this.quoteService.fetchQuote();
+  }
+
+  ngOnDestroy() {
+    this.quoteSub.unsubscribe()
   }
 }

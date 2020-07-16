@@ -49,7 +49,7 @@ export class MediaService {
   downloadPercentage;
 
   // upload media: 
-  uploadMedia(form, mediaType, mediaDetails) {
+  uploadMedia(form, mediaType: string, mediaDetails) {
     const id = this.afs.createId(); // generate id
     // get the form details >> album,author,media,name
     var createAt = Date.now();
@@ -91,6 +91,7 @@ export class MediaService {
             // )
             this.afs.collection(mediaType).doc(id).set(JSON.parse(JSON.stringify(this.media))).then(
               resp => {
+                this.router.navigateByUrl(mediaType.toLowerCase())
                 this.presentToast(mediaType)
               }
             )
@@ -117,6 +118,7 @@ export class MediaService {
     this.afs.collection(mediaType).doc(id).set(JSON.parse(JSON.stringify(media))).then(
       resp => {
         this.presentToast(mediaType)
+        this.router.navigateByUrl('/quote')
       }
     )
   }
@@ -162,13 +164,25 @@ export class MediaService {
     } else {
       // only 1 quote can be published
       // publishing a quote will unpublish all other published quote
-      this.afs.collection<Devotional>(mediaType, ref => ref.where('published', '==', true))
-       
-
       // publish this quote
-      this.afs.collection(mediaType).doc(id).update({
-        "published": true
-      })
+      let toPublish = id
+      let ptrue: Devotional;
+      this.afs.collection<Devotional>(mediaType, ref => ref.where("published", "==", true)).valueChanges().subscribe(
+        p => {
+          ptrue = p[0]
+          console.log(p)
+          if (ptrue) {
+            localStorage.setItem('published', ptrue.id)
+          }
+        }
+      )
+
+      this.afs.collection(mediaType).doc(localStorage.getItem('published')).update({ "published": false })
+      this.afs.collection(mediaType).doc(id).update({ "published": true })
+
+      // this.afs.collection(mediaType).doc(id).update({
+      //   "published": true
+      // })
     }
 
   }

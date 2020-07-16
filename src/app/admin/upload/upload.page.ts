@@ -17,7 +17,7 @@ export class UploadPage implements OnInit, OnDestroy {
   ) { }
 
 
-  mediaType = ''
+  mediaType;
   mediaDetail;
   uploadPercentage;
   uploadingPercentage;

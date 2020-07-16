@@ -27,7 +27,7 @@ export class QuotesService {
     this.afs.collection<Devotional>('Quote').valueChanges().subscribe(
       quotes => {
         this.quoteItems = quotes;
-        this.quoteSubject.next(this.quoteItems)
+        this.quoteSubject.next(this.quoteItems);
       }
     )
   }

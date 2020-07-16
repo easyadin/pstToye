@@ -23,7 +23,7 @@ export class Tab2Page implements OnInit {
   ngOnInit() {
     this.audioSub = this.audioService.audioSubject.subscribe(
       medialist => {
-        this.audioList = medialist
+        this.audioList = medialist.filter( media => media.published === true)
       }
     )
     this.audioService.fetchAudio()

@@ -27,7 +27,7 @@ export class Tab3Page implements OnInit, OnDestroy {
   ngOnInit() {
     this.videoSub = this.videoService.videoSubject.subscribe(
       medialist => {
-        this.videoList = medialist
+        this.videoList = medialist.filter(media => media.published === true)
       }
     )
     this.videoService.fetchVideo();
