@@ -14,8 +14,31 @@
 <ion-content>
 
   <form #uploadMedia="ngForm" (ngSubmit)="onSubmit(uploadMedia.value)">
+    <!-- Devotional & Quote -->
+    <ion-list *ngIf="mediaType =='Quote' || mediaType =='Devotional'">
+      <ion-item lines="none" style="margin-top: 50px;">
+        <ion-label style="text-align: center;">
+          <h1>Enter {{mediaType}} details</h1>
+        </ion-label>
+      </ion-item>
 
-    <ion-list>
+      <!-- media details -->
+      <ion-item class="ion-padding">
+        <ion-label position="stacked">{{mediaType}} Text</ion-label>
+        <ion-input type="text" ngModel name="text" #text="ngModel" required placeholder="e.g Mathew 5:4">
+        </ion-input>
+      </ion-item>
+
+      <ion-item class="ion-padding">
+        <ion-label position="stacked">{{mediaType}} Content</ion-label>
+        <ion-textarea type="text" ngModel name="content" #content="ngModel" required placeholder="e.g Your message">
+        </ion-textarea>
+      </ion-item>
+    </ion-list>
+
+
+
+    <ion-list *ngIf="mediaType !='Quote' && mediaType !='Devotional'">
       <ion-item type="button" lines="none">
         <ion-card>
           <!-- media types select file-->
@@ -60,7 +83,13 @@
     </ion-buttons>
   </form>
 
-  <ion-item detail routerLink="/tabs/{{mediaType}}" *ngIf="uploadPercentage">
+  <ion-item detail routerLink="/tabs/Home" *ngIf="mediaType =='Quote'">
+    <ion-label>
+      View on App
+    </ion-label>
+  </ion-item>
+
+  <ion-item detail routerLink="/tabs/{{mediaType}}" *ngIf="uploadPercentage && mediaType !='Quote'">
     <ion-label>
       View on App
     </ion-label>

@@ -40,7 +40,23 @@ export class AudioplayerPage implements OnInit, OnDestroy {
   ngOnInit() { }
 
   ionViewWillEnter() {
+    // get id of audio passed in query
+    this.activatedRoute.paramMap.subscribe(paramMap => {
+      if (!paramMap.has('id')) {
+        this.navCtrl.navigateBack('/tabs/home');
+        return;
+      }
 
+      // retrieve audio 
+      this.RetrievedAudio = this.audioService.getAudio(paramMap.get('id'))
+      // play audio
+      try {
+        this.streamService.playAudio(this.RetrievedAudio);
+      } catch (error) {
+        console.log(error)
+      }
+
+    })
   }
 
   ionViewDidEnter() {
@@ -56,8 +72,13 @@ export class AudioplayerPage implements OnInit, OnDestroy {
         this.RetrievedAudio = media.find(m => m.id === paramMap.get('id'))
 
         // play audio
-        this.streamService.playAudio(this.RetrievedAudio);
+        try {
+          this.streamService.playAudio(this.RetrievedAudio);
+        } catch (error) {
+          console.log(error)
+        }
       })
+      this.streamService.playAudio(this.RetrievedAudio);
     })
   }
 

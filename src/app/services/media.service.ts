@@ -1,10 +1,11 @@
+import { Devotional } from './../model/media';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { LoadingController, AlertController, Platform } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { User } from 'firebase';
-import { Media } from '../model/media';
+import { Media, Devotional } from '../model/media';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable, Subject } from 'rxjs';
 import { finalize, take } from 'rxjs/operators';
@@ -13,6 +14,8 @@ import { saveAs } from 'file-saver';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
+import { Downloader, DownloadRequest, NotificationVisibility } from '@ionic-native/downloader/ngx';
+import { stringify } from 'querystring';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +32,8 @@ export class MediaService {
     private platform: Platform,
     private transfer: FileTransfer,
     private file: File,
-    private filePath: FilePath
+    private filePath: FilePath,
+    private downloader: Downloader
   ) { }
 
   audioCollection
@@ -99,6 +103,23 @@ export class MediaService {
     })
   }
 
+  // upload devotional & quotes
+  uploadMessage(form, mediaType) {
+    const id = this.afs.createId(); // generate id
+    // build media
+    let media = new Devotional(
+      id,
+      mediaType,
+      form.text,
+      form.content,
+      false
+    )
+    this.afs.collection(mediaType).doc(id).set(JSON.parse(JSON.stringify(media))).then(
+      resp => {
+        this.presentToast(mediaType)
+      }
+    )
+  }
 
   Counter = {
     pending: [],
@@ -134,9 +155,22 @@ export class MediaService {
 
   // publish media
   publish(id, mediaType) {
-    this.afs.collection(mediaType).doc(id).update({
-      "published": true
-    })
+    if (mediaType !== 'Quote') {
+      this.afs.collection(mediaType).doc(id).update({
+        "published": true
+      })
+    } else {
+      // only 1 quote can be published
+      // publishing a quote will unpublish all other published quote
+      this.afs.collection<Devotional>(mediaType, ref => ref.where('published', '==', true))
+       
+
+      // publish this quote
+      this.afs.collection(mediaType).doc(id).update({
+        "published": true
+      })
+    }
+
   }
 
   // unpublish
@@ -160,7 +194,7 @@ export class MediaService {
   async presentToast(mediaType) {
     const toast = await this.toastController.create({
       message: `${mediaType} was uploaded successfully`,
-      duration: 3000
+      duration: 3200
     });
     toast.present();
   }
@@ -193,13 +227,30 @@ export class MediaService {
     console.log(media)
     if (this.platform.is('hybrid')) {
       const url = media.downloadUrl;
-      this.transfer.create().download(url, this.file.dataDirectory +"/toye/")
-        .then((entry) => {
-          this.presentToast2(media.mediaType, "downloaded")
-          // entry.toURL()
-        }, (error) => {
-          this.presentToast2(media.mediaType, "Error")
-        });
+      // this.transfer.create().download(url, this.file.dataDirectory)
+      //   .then((entry) => {
+      //     this.presentToast2(media.mediaType, "downloaded")
+      //     // entry.toURL()
+      //   }, (error) => {
+      //     this.presentToast2(media.mediaType, error)
+      //     console.log(error)
+      //   });
+      var request: DownloadRequest = {
+        uri: url,
+        title: media.mediaName,
+        description: '',
+        mimeType: '',
+        visibleInDownloadsUi: true,
+        notificationVisibility: NotificationVisibility.VisibleNotifyCompleted,
+        destinationInExternalFilesDir: {
+          dirType: 'Downloads/',
+          subPath: media.mediaName
+        }
+      };
+
+      this.downloader.download(request)
+        .then((location: string) => console.log('File downloaded at:' + location))
+        .catch((error: any) => console.error(error));
     }
     else {
       // cordova or capacitor

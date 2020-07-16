@@ -1,3 +1,4 @@
+import { AuthGuard } from './auth/auth.guard';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
@@ -8,7 +9,8 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    loadChildren: () => import('./admin/admin.module').then(m => m.AdminPageModule)
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'notifications',
@@ -34,31 +36,35 @@ const routes: Routes = [
   },
   {
     path: 'audio',
-    loadChildren: () => import('./admin/audio/audio.module').then(m => m.AudioPageModule)
+    loadChildren: () => import('./admin/audio/audio.module').then(m => m.AudioPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'video',
-    loadChildren: () => import('./admin/video/video.module').then(m => m.VideoPageModule)
+    loadChildren: () => import('./admin/video/video.module').then(m => m.VideoPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'devotional',
-    loadChildren: () => import('./admin/devotional/devotional.module').then(m => m.DevotionalPageModule)
+    loadChildren: () => import('./admin/devotional/devotional.module').then(m => m.DevotionalPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'quote',
-    loadChildren: () => import('./admin/quote/quote.module').then(m => m.QuotePageModule)
+    loadChildren: () => import('./admin/quote/quote.module').then(m => m.QuotePageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthPageModule)
   },
-
   {
     path: 'upload',
     children: [
       {
         path: ':id',
-        loadChildren: () => import('./admin/upload/upload.module').then(m => m.UploadPageModule)
+        loadChildren: () => import('./admin/upload/upload.module').then(m => m.UploadPageModule),
+        canLoad: [AuthGuard]
       }
     ]
   },

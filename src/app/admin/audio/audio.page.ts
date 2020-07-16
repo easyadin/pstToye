@@ -14,6 +14,7 @@ export class AudioPage implements OnInit, OnDestroy {
   constructor(
     private audioService: AudioService,
     private mediaService: MediaService,
+    private menu: MenuController
   ) { }
 
   audioSub: Subscription;
@@ -25,6 +26,8 @@ export class AudioPage implements OnInit, OnDestroy {
   counterSub: Subscription;
 
   ngOnInit() {
+    this.menu.enable(true)
+
     this.audioSub = this.audioService.audioSubject.subscribe(
       medialist => {
         this.audioList = medialist

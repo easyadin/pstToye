@@ -21,9 +21,10 @@ export class Media {
 export class Devotional {
    constructor(
       public id: string,
-      public devotionName: string,
+      public mediaType: string,
       public scripture: string,
-      public content: boolean
+      public content: string,
+      public published: boolean
    ) { }
 }
 

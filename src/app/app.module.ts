@@ -19,6 +19,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
+import { Downloader } from '@ionic-native/downloader/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,7 +35,7 @@ import { FilePath } from '@ionic-native/file-path/ngx';
   ],
 
   providers: [
-    FileTransfer, File,FilePath,
+    FileTransfer, File, FilePath, Downloader,
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

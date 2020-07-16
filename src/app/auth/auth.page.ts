@@ -1,3 +1,5 @@
+import { AuthService } from './auth.service';
+import { MenuController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./auth.page.scss'],
 })
 export class AuthPage implements OnInit {
-
-  constructor() { }
+  constructor(private menu: MenuController,
+    private auth: AuthService) { }
 
   ngOnInit() {
+    this.menu.enable(false)
+  }
+
+  onSubmit(form) {
+    this.auth.login_With_Email_Password(form.email, form.password)
   }
 
 }

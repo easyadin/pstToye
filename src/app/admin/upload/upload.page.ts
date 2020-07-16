@@ -1,7 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { MediaService } from './../../services/media.service';
 import { Component, OnInit, Input, SimpleChanges, OnDestroy } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, MenuController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -13,6 +13,7 @@ export class UploadPage implements OnInit, OnDestroy {
   constructor(private mediaService: MediaService,
     private route: ActivatedRoute,
     private navCtrl: NavController,
+    private menu: MenuController
   ) { }
 
 
@@ -24,6 +25,7 @@ export class UploadPage implements OnInit, OnDestroy {
   percentageSubscription: Subscription;
 
   ngOnInit() {
+    this.menu.enable(true)
     this.route.paramMap.subscribe(paramap => {
       if (!paramap.has('id')) {
         this.navCtrl.navigateBack('/audio'); // replace this with dashboard /admin
@@ -47,7 +49,12 @@ export class UploadPage implements OnInit, OnDestroy {
   }
 
   onSubmit(form) {
-    this.mediaService.uploadMedia(form, this.mediaType, this.mediaDetail)
+    if (this.mediaType == "Quote" || this.mediaType == "Devotional") {
+      this.mediaService.uploadMessage(form, this.mediaType)
+    }
+    else {
+      this.mediaService.uploadMedia(form, this.mediaType, this.mediaDetail)
+    }
   }
 
   ngOnDestroy() {
