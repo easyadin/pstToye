@@ -1,37 +1,46 @@
-## Welcome to GitHub Pages
+## Privacy Policy
 
-You can use the [editor on GitHub](https://github.com/easyadin/pstToye/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+Toye Fakunle app is a Free app. This SERVICE is provided at no cost and is intended for use as is.
+This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+If you choose to use my Service, then you agree to the authorised access to device camera and audio which is to save files to device storage
 
-### Markdown
+The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is accessible at Toye Fakunle unless otherwise defined in this Privacy Policy.
 
+### Information Collection and Use
+
+For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information. The information that I request will be retained on your device and is not collected by me in any way.
+
+The app does use third party services that may collect information used to identify you.
+
+### Link to privacy policy of third party service providers used by the app
+
+Google Play Services
+Google Analytics for Firebase
+Firebase Crashlytics
+Log Data
+
+I want to inform you that whenever you use my Service, in a case of an error in the app I collect data and information (through third party products) on your phone called Log Data. This Log Data may include information such as your device Internet Protocol (“IP”) address, device name, operating system version, the configuration of the app when utilizing my Service, the time and date of your use of the Service, and other statistics.
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
-```markdown
-Syntax highlighted code block
+### Cookies
 
-# Header 1
-## Header 2
-### Header 3
+Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the websites that you visit and are stored on your device's internal memory.
 
-- Bulleted
-- List
+This Service does not use these “cookies” explicitly. However, the app may use third party code and libraries that use “cookies” to collect information and improve their services. You have the option to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service.
 
-1. Numbered
-2. List
+### Service Providers
 
-**Bold** and _Italic_ and `Code` text
+I may employ third-party companies and individuals due to the following reasons:
 
-[Link](url) and ![Image](src)
-```
+To facilitate our Service;
+To provide the Service on our behalf;
+To perform Service-related services; or
+To assist us in analyzing how our Service is used.
+I want to inform users of this Service that these third parties have access to your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose.
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+### Contact Us
 
-### Jekyll Themes
+If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at tobiayokunnu@gmail.com.
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/easyadin/pstToye/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
 
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
